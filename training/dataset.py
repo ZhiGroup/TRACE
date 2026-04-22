@@ -1,4 +1,5 @@
 # please use affine registered MRI. See README for preprocessing instructions.
+# cohort CSV columns: participant_id, t1_mri_path, t1_brain_path
 
 # imports
 import torch.nn.functional as F
@@ -180,17 +181,14 @@ class aedataset_region_indiv(torch.utils.data.Dataset):
         return len(self.participant_ids)
 
     def __getitem__(self, idxx=int):
-        pid, t1_mri_path, t1_brain_path, t1_seg_path = self.datafile.iloc[idxx].tolist()
+        row = self.datafile.iloc[idxx].tolist()
+        pid, t1_mri_path, t1_brain_path = row[0], row[1], row[2]
 
-        if self.region_type == 'wmc':
-            mask = nib.load(t1_brain_path).get_fdata()
-            if isinstance(self.region_id, int):
-                mask = (mask == self.region_id).astype('int')
-            else:
-                mask = mask.astype('int')
-        else:  # subcortical mask
-            mask = nib.load(t1_seg_path).get_fdata()
-            mask = (mask != 0).astype('int')
+        mask = nib.load(t1_brain_path).get_fdata()
+        if isinstance(self.region_id, int):
+            mask = (mask == self.region_id).astype('int')
+        else:
+            mask = mask.astype('int')
 
         img = nib.load(t1_mri_path)
         img = img.get_fdata()
@@ -254,23 +252,17 @@ class aedataset_region_indiv_border(torch.utils.data.Dataset):
         return len(self.participant_ids)
 
     def __getitem__(self, idxx=int):
-        pid, t1_mri_path, t1_brain_path, t1_seg_path = self.datafile.iloc[idxx].tolist()
+        row = self.datafile.iloc[idxx].tolist()
+        pid, t1_mri_path, t1_brain_path = row[0], row[1], row[2]
 
-        if self.region_type == 'wmc':
-            mask = nib.load(t1_brain_path).get_fdata()
-            if self.remove_border_function is not None:
-                m = self.remove_border_function(
-                    mask, self.remove_border_by_n_voxel)
-            if isinstance(self.region_id, int):
-                mask = (mask == self.region_id).astype('int')
-            else:
-                mask = mask.astype('int')
+        mask = nib.load(t1_brain_path).get_fdata()
+        if self.remove_border_function is not None:
+            m = self.remove_border_function(
+                mask, self.remove_border_by_n_voxel)
+        if isinstance(self.region_id, int):
+            mask = (mask == self.region_id).astype('int')
         else:
-            mask = nib.load(t1_seg_path).get_fdata()
-            if self.remove_border_function is not None:
-                m = self.remove_border_function(
-                    mask, self.remove_border_by_n_voxel)
-            mask = (mask != 0).astype('int')
+            mask = mask.astype('int')
 
         img = nib.load(t1_mri_path)
         img = img.get_fdata()

@@ -15,20 +15,19 @@ pip install -r requirements.txt
 Also requires:
 - GCTA >= 1.94 for heritability estimation (https://yanglab.westlake.edu.cn/software/gcta/)
 - Pre-processed (affine-registered) T1 MRI volumes in MNI space
-- WM/GM/CSF segmentation masks (e.g. FSL FAST)
+- Binary whole-brain mask per subject (e.g. FSL BET output)
 - Genotype data in BGEN format with pre-computed GRM
 
 ## Data preparation
 
-MRI preprocessing: affine registration to MNI152 template. We used FSL FLIRT. Input images should be skull-stripped with brain/tissue segmentation masks available.
+MRI preprocessing: affine registration to MNI152 template. We used FSL FLIRT. Input images should be skull-stripped with a binary brain mask available.
 
 Cohort CSVs: each CSV should have columns:
 ```
-participant_id, t1_mri_path, t1_brain_path, t1_seg_path
+participant_id, t1_mri_path, t1_brain_path
 ```
 
-`t1_brain_path` = binary brain mask (FSL bet output)
-`t1_seg_path`   = tissue segmentation (FSL FAST, values 1=CSF, 2=GM, 3=WM)
+`t1_brain_path` = binary whole-brain mask (FSL BET output)
 
 ## Configuration
 
