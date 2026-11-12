@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "TRACE: Training-dynamics Analysis via Checkpoint Ensemble"
+authors:
+  - family-names: Islam
+    given-names: Sheikh Muhammad Saiful
+  - family-names: Xia
+    given-names: Tian
+  - family-names: Zhao
+    given-names: Xingzhong
+  - family-names: Xie
+    given-names: Ziqian
+  - family-names: Zhi
+    given-names: Degui
+repository-code: "https://github.com/ZhiGroup/TRACE"
+license: "[e.g. MIT, check what the lab uses]"
+version: "1.0.0"
+date-released: "2026-11-12"
