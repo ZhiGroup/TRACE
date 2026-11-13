@@ -13,6 +13,6 @@ authors:
   - family-names: Zhi
     given-names: Degui
 repository-code: "https://github.com/ZhiGroup/TRACE"
-license: "[e.g. MIT, check what the lab uses]"
+license: MIT
 version: "1.0.0"
 date-released: "2026-11-12"
