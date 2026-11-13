@@ -6,6 +6,8 @@ Code for "Learning dynamics of unsupervised deep learning reveal epoch-specific 
 
 TRACE (TRAining-trajectory Chromosome Explorer) trains a 3D convolutional autoencoder on T1 MRI volumes and runs GWAS at every training checkpoint. Informative epochs (those with >100 unique genome-wide significant SNPs not seen in earlier epochs) are selected and their p-values are combined via a minimum-p statistic across all 128 latent dimensions.
 
+To reproduce the paper, use requirements-study.txt (Python 3.7.10, PyTorch 1.10.2, PyTorch Lightning 1.6.5).
+
 ## Requirements
 
 ```
